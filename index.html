@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minijuego de Memoria Musical</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.55.2/phaser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            border: 2px solid #000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .phaser-text {
+            font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
     <script>
@@ -64,11 +85,11 @@
 
         function showStartScreen() {
             // Display start screen with difficulty selection
-            this.add.text(200, 100, 'Minijuego de Memoria Musical', { fontSize: '48px', fill: '#000' });
+            this.add.text(200, 100, 'Minijuego de Memoria Musical', { fontSize: '48px', fill: '#000' }).setOrigin(0.5);
 
-            this.easyButton = this.add.text(300, 200, 'Fácil', { fontSize: '32px', fill: '#00ff00' }).setInteractive();
-            this.mediumButton = this.add.text(300, 300, 'Medio', { fontSize: '32px', fill: '#0000ff' }).setInteractive();
-            this.hardButton = this.add.text(300, 400, 'Difícil', { fontSize: '32px', fill: '#ff0000' }).setInteractive();
+            this.easyButton = this.add.text(400, 200, 'Fácil', { fontSize: '32px', fill: '#00ff00' }).setOrigin(0.5).setInteractive();
+            this.mediumButton = this.add.text(400, 300, 'Medio', { fontSize: '32px', fill: '#0000ff' }).setOrigin(0.5).setInteractive();
+            this.hardButton = this.add.text(400, 400, 'Difícil', { fontSize: '32px', fill: '#ff0000' }).setOrigin(0.5).setInteractive();
 
             this.easyButton.on('pointerdown', () => setDifficulty.call(this, 'easy'));
             this.mediumButton.on('pointerdown', () => setDifficulty.call(this, 'medium'));
@@ -155,10 +176,10 @@
         }
 
         function gameOver() {
-            this.add.text(300, 200, 'Game Over', { fontSize: '64px', fill: '#ff0000' });
-            this.add.text(300, 300, 'Puntuación Final: ' + score, { fontSize: '32px', fill: '#000' });
+            this.add.text(400, 200, 'Game Over', { fontSize: '64px', fill: '#ff0000' }).setOrigin(0.5);
+            this.add.text(400, 300, 'Puntuación Final: ' + score, { fontSize: '32px', fill: '#000' }).setOrigin(0.5);
 
-            const restartButton = this.add.text(300, 400, 'Reiniciar', { fontSize: '32px', fill: '#00f' }).setInteractive();
+            const restartButton = this.add.text(400, 400, 'Reiniciar', { fontSize: '32px', fill: '#00f' }).setOrigin(0.5).setInteractive();
             restartButton.on('pointerdown', () => {
                 sequence = [];
                 score = 0;
