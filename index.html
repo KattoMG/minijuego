@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minijuego de Memoria Musical</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.55.2/phaser.min.js"></script>
+</head>
+<body>
+    <script>
+        const config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        const colors = ['red', 'green', 'blue', 'yellow'];
+        let sequence = [];
+        let playerSequence = [];
+        let currentStep = 0;
+        let isPlayerTurn = false;
+        let isAnimating = false;
+
+        const game = new Phaser.Game(config);
+
+        function preload() {
+            this.load.audio('red', 'path_to_red_sound.mp3');
+            this.load.audio('green', 'path_to_green_sound.mp3');
+            this.load.audio('blue', 'path_to_blue_sound.mp3');
+            this.load.audio('yellow', 'path_to_yellow_sound.mp3');
+        }
+
+        function create() {
+            this.cameras.main.setBackgroundColor('#ffffff');
+
+            this.redButton = this.add.rectangle(200, 300, 150, 150, 0xff0000).setInteractive();
+            this.greenButton = this.add.rectangle(400, 300, 150, 150, 0x00ff00).setInteractive();
+            this.blueButton = this.add.rectangle(600, 300, 150, 150, 0x0000ff).setInteractive();
+            this.yellowButton = this.add.rectangle(400, 450, 150, 150, 0xffff00).setInteractive();
+
+            this.redButton.on('pointerdown', () => handlePlayerInput.call(this, 'red'));
+            this.greenButton.on('pointerdown', () => handlePlayerInput.call(this, 'green'));
+            this.blueButton.on('pointerdown', () => handlePlayerInput.call(this, 'blue'));
+            this.yellowButton.on('pointerdown', () => handlePlayerInput.call(this, 'yellow'));
+
+            startNewRound.call(this);
+        }
+
+        function update() {}
+
+        function startNewRound() {
+            isPlayerTurn = false;
+            playerSequence = [];
+            currentStep = 0;
+            sequence.push(Phaser.Utils.Array.GetRandom(colors));
+            animateSequence.call(this);
+        }
+
+        function animateSequence() {
+            isAnimating = true;
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index >= sequence.length) {
+                    clearInterval(interval);
+                    isAnimating = false;
+                    isPlayerTurn = true;
+                    return;
+                }
+
+                playSound.call(this, sequence[index]);
+                index++;
+            }, 800);
+        }
+
+        function handlePlayerInput(color) {
+            if (!isPlayerTurn || isAnimating) return;
+
+            playSound.call(this, color);
+            playerSequence.push(color);
+
+            if (color === sequence[playerSequence.length - 1]) {
+                if (playerSequence.length === sequence.length) {
+                    startNewRound.call(this);
+                }
+            } else {
+                gameOver.call(this);
+            }
+        }
+
+        function playSound(color) {
+            this.sound.play(color);
+        }
+
+        function gameOver() {
+            alert('Game Over! You reached round ' + sequence.length);
+            sequence = [];
+            startNewRound.call(this);
+        }
+    </script>
+</body>
+</html>
