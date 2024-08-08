@@ -17,6 +17,8 @@ var playerSequence = [];
 var sounds = [];
 var currentStep = 0;
 var playingSequence = false;
+var buttons = [];
+var colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00];  // Rojo, verde, azul, amarillo
 
 function preload() {
     this.load.audio('sound1', 'https://examples.phaser.io/assets/audio/SoundEffects/key.wav');
@@ -33,17 +35,22 @@ function create() {
 
     this.add.text(400, 50, 'Juego de Memoria Musical', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
     
-    var buttons = [];
     for (let i = 0; i < 4; i++) {
-        let button = this.add.rectangle(200 + i * 150, 300, 100, 100, 0xffffff).setInteractive();
+        let button = this.add.rectangle(200 + i * 150, 300, 100, 100, colors[i]).setInteractive();
         button.sound = sounds[i];
+        button.color = colors[i];
         button.on('pointerdown', function () {
             if (!playingSequence) {
                 button.sound.play();
+                button.setFillStyle(0xffffff);
+                this.time.addEvent({
+                    delay: 200,
+                    callback: () => button.setFillStyle(button.color)
+                });
                 playerSequence.push(i);
                 checkSequence();
             }
-        });
+        }, this);
         buttons.push(button);
     }
 
@@ -70,7 +77,13 @@ function nextRound() {
 function playSequence() {
     if (currentStep < sequence.length) {
         let soundIndex = sequence[currentStep];
-        sounds[soundIndex].play();
+        let button = buttons[soundIndex];
+        button.sound.play();
+        button.setFillStyle(0xffffff);
+        this.time.addEvent({
+            delay: 200,
+            callback: () => button.setFillStyle(button.color)
+        });
         currentStep++;
         this.time.addEvent({
             delay: 600,
