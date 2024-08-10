@@ -25,17 +25,18 @@ var score = 0;
 var scoreText;
 
 function preload() {
-    this.load.image('park', 'park.png'); // Fondo del parque
-    this.load.image('ground', 'platform.png'); // Plataformas
-    this.load.image('note', 'diamond.png'); // Notas musicales
-    this.load.spritesheet('lily', 'dude.png', { frameWidth: 32, frameHeight: 48 }); // Sprite de Lily
+    this.load.image('park', 'https://examples.phaser.io/assets/skies/space3.png');
+    this.load.image('ground', 'https://examples.phaser.io/assets/sprites/platform.png');
+    this.load.image('note', 'https://examples.phaser.io/assets/sprites/diamond.png');
+    this.load.spritesheet('lily', 'https://examples.phaser.io/assets/sprites/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create() {
-    this.cameras.main.setBackgroundColor('#87CEEB'); // Azul cielo para el fondo
+    // Agrega un color de fondo
+    this.cameras.main.setBackgroundColor('#87CEEB');
 
-    // El resto de tu código...
-}
+    // Fondo
+    this.add.image(400, 300, 'park');
 
     // Plataformas
     var platforms = this.physics.add.staticGroup();
