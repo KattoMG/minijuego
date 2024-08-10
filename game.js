@@ -32,8 +32,10 @@ function preload() {
 }
 
 function create() {
-    // Fondo
-    this.add.image(400, 300, 'park');
+    this.cameras.main.setBackgroundColor('#87CEEB'); // Azul cielo para el fondo
+
+    // El resto de tu código...
+}
 
     // Plataformas
     var platforms = this.physics.add.staticGroup();
