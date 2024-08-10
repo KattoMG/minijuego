@@ -25,10 +25,10 @@ var score = 0;
 var scoreText;
 
 function preload() {
-    this.load.image('park', 'https://examples.phaser.io/assets/skies/space3.png');
-    this.load.image('ground', 'https://examples.phaser.io/assets/sprites/platform.png');
-    this.load.image('note', 'https://examples.phaser.io/assets/sprites/diamond.png');
-    this.load.spritesheet('lily', 'https://examples.phaser.io/assets/sprites/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.image('park', 'park.png'); // Fondo del parque
+    this.load.image('ground', 'platform.png'); // Plataformas
+    this.load.image('note', 'diamond.png'); // Notas musicales
+    this.load.spritesheet('lily', 'dude.png', { frameWidth: 32, frameHeight: 48 }); // Sprite de Lily
 }
 
 function create() {
