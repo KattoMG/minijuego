@@ -52,12 +52,13 @@
 
         const game = new Phaser.Game(config);
 
-        function preload() {
-            this.load.audio('red', 'path_to_red_sound.mp3');
-            this.load.audio('green', 'path_to_green_sound.mp3');
-            this.load.audio('blue', 'path_to_blue_sound.mp3');
-            this.load.audio('yellow', 'path_to_yellow_sound.mp3');
+       function preload() {
+            this.load.audio('sound1', 'assets/audio/sound1.mp3');
+            this.load.audio('sound2', 'assets/audio/sound2.mp3');
+            this.load.audio('sound3', 'assets/audio/sound3.mp3');
+            this.load.audio('sound4', 'assets/audio/sound4.mp3');
         }
+
 
         function create() {
             this.cameras.main.setBackgroundColor('#ffffff');
